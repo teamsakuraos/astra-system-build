@@ -18,7 +18,7 @@ stages:          # List of stages for jobs, and their order of execution
   - config
 
 build-job:       # This job runs in the build stage, which runs first.
-  stage: build
+  stage: config
   image: docker.io/library/debian:trixie-slim
   script:
     - apt update
