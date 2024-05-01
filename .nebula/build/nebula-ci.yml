@@ -16,10 +16,13 @@
 
 stages:          # List of stages for jobs, and their order of execution
   - config
+  - ready
+  - build
+image: docker.io/library/debian:trixie-slim
 
-build-job:       # This job runs in the build stage, which runs first.
+Config Files:       # This job runs in the build stage, which runs first.
   stage: config
-  image: docker.io/library/debian:trixie-slim
+  # image: docker.io/library/debian:trixie-slim
   script:
     - apt update
     - apt install -y sudo dpkg-dev dctrl-tools sudo devscripts wget isolinux syslinux
@@ -27,3 +30,15 @@ build-job:       # This job runs in the build stage, which runs first.
     - sudo apt -y install ./*.deb
     - cd debootstrap/ && sudo apt-get build-dep ./ && debuild -us -uc -b && sudo apt -y install ../*.deb
 
+Ready build Files:
+  stage: ready
+  script:
+    - sudo apt-get build-dep ./
+    - sudo make install
+    - sudo apt-key add keying/lingmo.gpg
+    - mkdir build-sys/ && mv auto/ build-sys/ && mv config/ build-sys/ && cd build-sys/ && sudo chmod +x auto/*&& sudo lingmo-sys-build clean && sudo lingmo-sys-build config
+
+Build Sytem:
+  stage: build
+  script:
+    - cd build-sys/ && sudo lingmo-sys-build build
