@@ -1,0 +1,84 @@
+name: Build
+
+permissions: write-all
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+jobs:
+  debian:
+    name: Building iso disk image
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Update source
+        run: sudo apt update
+
+      - name: install base pkg
+        run: sudo apt install -y sudo dpkg-dev dctrl-tools devscripts wget isolinux syslinux
+
+      - name: Install Lingmo Debootstrap
+        run: |
+            wget http://ftp.cn.debian.org/debian/pool/main/d/debootstrap/debootstrap_1.0.134_all.deb
+            sudo apt -y install ./*.deb
+            cd debootstrap/ && sudo apt-get build-dep ./ && debuild -us -uc -b && sudo apt -y install ../*.deb
+
+      - name: Install Lingmo System Build
+        run: |
+            sudo apt-get build-dep ./
+            sudo make install
+            sudo apt-key add keying/lingmo.gpg
+      # - name: Build GRUB EFI
+      #  run: |
+      #      cd boot/grub/ && sudo apt build-dep ./ && debuild -us -uc -b && cd ../ && mv ./*.deb ../config/packages.chroot/ && cd ..
+
+      - name: Config Base Settings
+        run: |
+            mkdir build-sys/ && mv auto/ build-sys/ && mv config/ build-sys/ && cd build-sys/ && sudo chmod +x auto/*&& sudo lingmo-sys-build clean && sudo lingmo-sys-build config           
+
+      - name: Build System
+        run: |
+            cd build-sys/ && sudo lingmo-sys-build build
+
+      - name: Read Upload
+        run: |
+            mkdir artifact/
+            # find build-sys -type f -name "*.iso" -exec mv {} artifact/ \;
+            sudo mv build-sys/out/* artifact/
+            
+      - name: Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: artifact
+          path: ${{ github.workspace }}/artifact/*
+          compression-level: 9 # maximum compression
+          if-no-files-found: error # 'warn' or 'ignore' are also available, defaults to `warn`
+      #
+     # - name: Confirm iso
+      #  run: sudo mv config/out/*.iso config/out/LingmoOS-2.0-Polaris-beta-dev-desktop-amd64.iso
+      #
+     # - name: Create Release
+      #  id: create_release
+      #  uses: actions/create-release@v1
+      #  env:
+     #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+       # with:
+     #     tag_name: 2.0.0-beta3-dev
+     #     release_name: Release LingmoOS 2.0 beta3 dev
+    #      draft: false
+     #     prerelease: false
+    #  - name: Upload Release Asset
+    #    id: upload-release-asset
+    #    uses: actions/upload-release-asset@v1
+    #    env:
+    #      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #    with:
+     #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+      #    asset_path: ${{ github.workspace }}/config/out/*
+     #     asset_name: LingmoOS-2.0-Polaris-beta-dev-desktop-amd64.iso
+      #    asset_content_type: application/iso
