@@ -742,7 +742,6 @@ libbytesize-common
 libbytesize1
 libbz2-1.0
 libbz2-dev
-libc-ares2
 libc-bin
 libc-dev-bin
 libc-devtools
@@ -1306,7 +1305,6 @@ libmpcdec6
 libmpeg2-4
 libmpeg2encpp-2.1-0t64
 libmpfr6
-libmpg123-0
 libmplex2-2.1-0t64
 libmspack0t64
 libmspub-0.1-1
@@ -1346,8 +1344,6 @@ libnm0
 libnma-common
 libnma0
 libnode-dev
-libnode108
-libnode109
 libnotify-bin
 libnotify4
 libnova-0.16-0t64
