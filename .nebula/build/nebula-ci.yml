@@ -22,8 +22,8 @@ Build Sytem:       # This job runs in the build stage, which runs first.
   stage: build
   # image: docker.io/library/debian:trixie-slim
   script:
-    - sudo apt update
-    - sudo apt install -y sudo dpkg-dev dctrl-tools sudo devscripts wget isolinux syslinux
+    - apt update
+    - apt install -y sudo dpkg-dev dctrl-tools sudo devscripts wget isolinux syslinux
     - wget http://ftp.cn.debian.org/debian/pool/main/d/debootstrap/debootstrap_1.0.134_all.deb
     - sudo apt -y install ./*.deb
     - cd debootstrap/ && sudo apt-get -y build-dep ./ && debuild -us -uc -b && sudo apt -y install ../*.deb && cd ..
