@@ -49,7 +49,7 @@ PRIVATEKEY=""
 CACHE_DIR=""
 INRELEASE_PATH=""
 
-DEF_MIRROR="http://deb.debian.org/debian"
+DEF_MIRROR="https://packages.lingmo.org"
 
 # set $CONTAINER
 detect_container
