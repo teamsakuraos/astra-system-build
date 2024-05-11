@@ -1,13 +1,13 @@
-# Lingmo OS System Build Tools
+# astraOS System Build Tools
 
-The tools and files used to build Lingmo OS can build a system that is not much different from the official version.
+The tools and files used to build astraOS can build a system that is not much different from the official version.
 
 ## **Prerequisite**: Please ensure that your build host has at least **45GB** of space and **administrator** privileges
 
 ## Build base directory
  - clone warehouse
  ```shell
- git clone https://github.com/LingmoOS/lingmo-system-build.git
+ git clone https://github.com/teamsakuraos/astra-system-build.git
  ```
  - Install related dependency packages
  ```shell
@@ -42,7 +42,7 @@ The tools and files used to build Lingmo OS can build a system that is not much 
  sudo lingmo-sys-build clean
  sudo lingmo-sys-build config
  ```
- - Build Lingmo OS (Beta)
+ - Build astraOS (Delta)
  ```shell
  cd build-sys/
  sudo lingmo-sys-build build
