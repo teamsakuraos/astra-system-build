@@ -11,7 +11,7 @@ The tools and files used to build astraOS can build a system that is not much di
  ```
  - Install related dependency packages
  ```shell
- apt install -y sudo dpkg-dev dctrl-tools devscripts wget isolinux syslinux
+ sudo apt install -y sudo dpkg-dev dctrl-tools devscripts wget isolinux syslinux
 
  wget http://ftp.cn.debian.org/debian/pool/main/d/debootstrap/debootstrap_1.0.134_all.deb
  sudo apt -y install ./*.deb
