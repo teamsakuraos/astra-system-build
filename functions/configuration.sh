@@ -16,7 +16,7 @@ Prepare_config ()
 			;;
 	esac
 	_BREAKPOINTS="${_BREAKPOINTS:-false}"
-	_DEBUG="${_DEBUG:-true}"
+	_DEBUG="${_DEBUG:-false}"
 	_FORCE="${_FORCE:-false}"
 	_QUIET="${_QUIET:-false}"
 	_VERBOSE="${_VERBOSE:-false}"
