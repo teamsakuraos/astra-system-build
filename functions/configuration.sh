@@ -16,7 +16,7 @@ Prepare_config ()
 			;;
 	esac
 	_BREAKPOINTS="${_BREAKPOINTS:-false}"
-	_DEBUG="${_DEBUG:-false}"
+	_DEBUG="${_DEBUG:-true}"
 	_FORCE="${_FORCE:-false}"
 	_QUIET="${_QUIET:-false}"
 	_VERBOSE="${_VERBOSE:-false}"
@@ -144,7 +144,7 @@ Prepare_config ()
 			;;
 	esac
 
-	LINGMO_SYS_BUILD_INITRAMFS_COMPRESSION="${LINGMO_SYS_BUILD_INITRAMFS_COMPRESSION:-xz}"
+	LINGMO_SYS_BUILD_INITRAMFS_COMPRESSION="${LINGMO_SYS_BUILD_INITRAMFS_COMPRESSION:-gzip}"
 
 	case "${LINGMO_SYS_BUILD_SYSTEM}" in
 		live)
