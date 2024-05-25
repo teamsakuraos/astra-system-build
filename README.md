@@ -20,7 +20,7 @@ The tools and files used to build astraOS can build a system that is not much di
  - Building and installing debootstrap
  ```shell
  # Builds pkgs
- cd debootstrap/ 
+ cd astra-system-build/debootstrap/ 
  sudo apt-get build-dep ./
  debuild -us -uc -b
  sudo apt -y install ../*.deb
@@ -44,7 +44,6 @@ The tools and files used to build astraOS can build a system that is not much di
  ```
  - Build astraOS (Delta)
  ```shell
- cd build-sys/
  sudo lingmo-sys-build build
  ```
 ### **Tips**: This process will consume a lot of time and disk space. After completion, you can view the completed product in the _out/_ directory
